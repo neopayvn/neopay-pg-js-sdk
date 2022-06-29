@@ -5,14 +5,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="lib/toast/styles.min.css">
 	<title>NEOPAY SDK Example</title>
 </head>
 
 <body>
 	<button onclick="onPay()">Thanh toán</button>
 </body>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script neopay-sdk type="text/javascript" src="sdk/neopay-sdk.min.js"></script>
+<script neopay-sdk type="text/javascript" src="sdk/neopay-sdk.js"></script>
+<script toast type="text/javascript" src="lib/toast/index.min.js"></script>
 <script>
 	$(document).ready(function () {
 		const configUI = {
@@ -36,7 +39,7 @@
 	})
 	function onPay() {
 		const config = {
-			neo_MerchantCode: 'tgdd',
+			neo_MerchantCode: 'KCQQYR',
 			neo_PaymentMethod: ["WALLET", "ATM", "CC"],
 			neo_Currency: 'VND',
 			neo_Locale: 'vi',
@@ -44,14 +47,14 @@
 			neo_Command: 'PAY',
 			neo_Amount: Math.floor(Math.random() * 600000) + 100000,
 			neo_MerchantTxnID: 'T23343243',
-			neo_OrderID: 'DH0000002',
-			neo_OrderInfo: `Thanh toán ĐH DH0000002`,
+			neo_OrderID: 'DHH0000A1000111121127',
+			neo_OrderInfo: `Thanh toán ĐH DH00001`,
 			neo_Title: 'Thanh toán',
 			neo_ReturnURL: "https://www.google.com/",
 			neo_AgainURL: "https://www.google.com/",
 			neo_ViewType: "POPUP", //POPUP | REDIRECT
 		};
-		const hashKey = "0F675BD73A874ADFAD94FFE4228384C5";
+		const hashKey = "AD11DBC9D3A84E50B6D7F72111993AD1";
 		neopaySDK.pay(config, hashKey);
 	}
 </script>
