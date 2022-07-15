@@ -110,14 +110,20 @@
 | pay         | Thanh toán                                         |
 | close       | Đóng popup thanh toán                              |
 
-### neopaySDK.init (configUI, callbacks)
+### neopaySDK.init (neo_Domain, configUI, callbacks)
+
+### neo_PaymmentBaseUrl
+Thông tin đường dẫn thanh toán
+Test môi trường UAT: https://uat-api.neopay.vn/pg
 
 ### configUI
 
-| Tham số          | Loại    | Giá trị mặc định | Mô tả                    |
-| ---------------- | ------- | ---------------- | ------------------------ |
-| neo_HiddenHeader | boolean | false            | Ẩn header khỏi giao diện |
-| neo_HiddenFooter | boolean | false            | Ẩn footer khỏi giao diện |
+| Tham số                 | Loại    | Giá trị mặc định | Mô tả                                    |
+| ----------------------- | ------- | ---------------- | ---------------------------------------- |
+| neo_HiddenHeader        | boolean | false            | Ẩn header khỏi giao diện                 |
+| neo_HiddenFooter        | boolean | false            | Ẩn footer khỏi giao diện                 |
+| neo_HiddenPaymentMethod | boolean | false            | Ẩn phương thức thanh toán khỏi giao diện |
+| neo_HiddenOrderInfo     | boolean | false            | Ẩn thông tin đơn hàng khỏi giao diện     |
 
 ### callback
 

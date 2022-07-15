@@ -12,9 +12,11 @@
 	<span id="neopay-checkout">Checkout</span>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script neopay-sdk type="text/javascript" src="sdk/neopay-sdk.min.js"></script>
+<script neopay-sdk type="text/javascript"
+	src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"></script>
 <script>
 	$(document).ready(function () {
+		const neo_PaymmentBaseUrl = "https://uat-api.neopay.vn/pg";
 		const configUI = {
 			neo_HiddenHeader: false,
 			neo_HiddenFooter: true
@@ -30,7 +32,7 @@
 				console.log(data)
 			}
 		}
-		neopaySDK.init(configUI, callbacks);
+		neopaySDK.init(neo_PaymmentBaseUrl, configUI, callbacks);
 	})
 
 </script>
