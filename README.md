@@ -173,7 +173,7 @@
 | pay         | Thanh toán                                         |
 | close       | Đóng popup thanh toán                              |
 
-### neopaySDK.init (neo_Domain, configUI, callbacks)
+### neopaySDK.init (neo_PaymmentBaseUrl, configUI, callbacks)
 
 ### neo_PaymmentBaseUrl
 
