@@ -29,7 +29,7 @@
   <script
     neopay-sdk
     type="text/javascript"
-    src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk@latest/sdk/neopay-sdk.min.js"
+    src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"
   ></script>
   <script>
     $(document).ready(function () {
