@@ -3,7 +3,7 @@
 ## Use
 
 ```html
-<!-- index.html -->
+<!-- example.html -->
 <!DOCTYPE html>
 <html lang="vi-VN">
   <head>
@@ -14,15 +14,31 @@
   </head>
 
   <body>
-    <button onclick="onPay()">Thanh toán</button>
+    <button onclick="onPayWithPopup()">Thanh toán (Popup)</button>
+    <br />
+    <br />
+    <button onclick="onPayWithRedirect()">Thanh toán (Redirect)</button>
+    <br />
+    <br />
+    <button onclick="onPayWithDupliceOrderId()">
+      Thanh toán (Mã đơn hàng bị trùng)
+    </button>
   </body>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script neopay-sdk type="text/javascript" src="sdk/neopay-sdk.js"></script>
+  <script
+    neopay-sdk
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk@latest/sdk/neopay-sdk.min.js"
+  ></script>
   <script>
     $(document).ready(function () {
+      const neo_PaymmentBaseUrl = "https://uat-api.neopay.vn/pg";
       const configUI = {
         neo_HiddenHeader: false,
         neo_HiddenFooter: true,
+        neo_HiddenPaymentMethod: false,
+        neo_HiddenOrderInfo: false,
       };
       const callbacks = {
         onSuccess: (data) => {
@@ -35,11 +51,11 @@
           console.log(data);
         },
       };
-      neopaySDK.init(configUI, callbacks);
+      neopaySDK.init(neo_PaymmentBaseUrl, configUI, callbacks);
     });
-    function onPay() {
+    function onPayWithPopup() {
       const config = {
-        neo_MerchantCode: "concung",
+        neo_MerchantCode: "HUYEN1",
         neo_PaymentMethod: ["WALLET", "ATM", "CC"],
         neo_Currency: "VND",
         neo_Locale: "vi",
@@ -47,12 +63,54 @@
         neo_Command: "PAY",
         neo_Amount: Math.floor(Math.random() * 600000) + 100000,
         neo_MerchantTxnID: "T23343243",
-        neo_OrderID: "DH23343243",
-        neo_OrderInfo: `Thanh toán ĐH DH23343243`,
+        neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
+        neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "file:///I:/work/neopay-pg-js-sdk/example-checkout.html",
-        neo_AgainURL: "file:///I:/work/neopay-pg-js-sdk/example-checkout.html",
+        neo_ReturnURL: "https://www.google.com/",
+        neo_AgainURL: "https://www.google.com/",
         neo_ViewType: "POPUP", //POPUP | REDIRECT
+      };
+      const hashKey = "123456";
+      neopaySDK.pay(config, hashKey);
+    }
+
+    function onPayWithRedirect() {
+      const config = {
+        neo_MerchantCode: "HUYEN1",
+        neo_PaymentMethod: ["WALLET", "ATM", "CC"],
+        neo_Currency: "VND",
+        neo_Locale: "vi",
+        neo_Version: "1",
+        neo_Command: "PAY",
+        neo_Amount: Math.floor(Math.random() * 600000) + 100000,
+        neo_MerchantTxnID: "T23343243",
+        neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
+        neo_OrderInfo: `Thanh toán ĐH Test`,
+        neo_Title: "Thanh toán",
+        neo_ReturnURL: "https://www.google.com/",
+        neo_AgainURL: "https://www.google.com/",
+        neo_ViewType: "REDIRECT", //POPUP | REDIRECT
+      };
+      const hashKey = "123456";
+      neopaySDK.pay(config, hashKey);
+    }
+
+    function onPayWithDupliceOrderId() {
+      const config = {
+        neo_MerchantCode: "HUYEN1",
+        neo_PaymentMethod: ["WALLET", "ATM", "CC"],
+        neo_Currency: "VND",
+        neo_Locale: "vi",
+        neo_Version: "1",
+        neo_Command: "PAY",
+        neo_Amount: Math.floor(Math.random() * 600000) + 100000,
+        neo_MerchantTxnID: "T23343243",
+        neo_OrderID: `DH001`,
+        neo_OrderInfo: `Thanh toán ĐH DH001`,
+        neo_Title: "Thanh toán",
+        neo_ReturnURL: "https://www.google.com/",
+        neo_AgainURL: "https://www.google.com/",
+        neo_ViewType: "REDIRECT", //POPUP | REDIRECT
       };
       const hashKey = "123456";
       neopaySDK.pay(config, hashKey);
@@ -78,9 +136,14 @@
     <span id="neopay-checkout">Checkout</span>
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script neopay-sdk type="text/javascript" src="sdk/neopay-sdk.js"></script>
+  <script
+    neopay-sdk
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"
+  ></script>
   <script>
     $(document).ready(function () {
+      const neo_PaymmentBaseUrl = "https://uat-api.neopay.vn/pg";
       const configUI = {
         neo_HiddenHeader: false,
         neo_HiddenFooter: true,
@@ -96,7 +159,7 @@
           console.log(data);
         },
       };
-      neopaySDK.init(configUI, callbacks);
+      neopaySDK.init(neo_PaymmentBaseUrl, configUI, callbacks);
     });
   </script>
 </html>
@@ -113,6 +176,7 @@
 ### neopaySDK.init (neo_Domain, configUI, callbacks)
 
 ### neo_PaymmentBaseUrl
+
 Thông tin đường dẫn thanh toán
 Test môi trường UAT: https://uat-api.neopay.vn/pg
 
