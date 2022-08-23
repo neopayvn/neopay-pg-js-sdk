@@ -66,8 +66,7 @@
         neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
         neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://www.google.com/",
-        neo_AgainURL: "https://www.google.com/",
+        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
         neo_ViewType: "POPUP", //POPUP | REDIRECT
       };
       const hashKey = "123456";
@@ -87,8 +86,7 @@
         neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
         neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://www.google.com/",
-        neo_AgainURL: "https://www.google.com/",
+        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
         neo_ViewType: "REDIRECT", //POPUP | REDIRECT
       };
       const hashKey = "123456";
@@ -108,8 +106,7 @@
         neo_OrderID: `DH001`,
         neo_OrderInfo: `Thanh toán ĐH DH001`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://www.google.com/",
-        neo_AgainURL: "https://www.google.com/",
+        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
         neo_ViewType: "REDIRECT", //POPUP | REDIRECT
       };
       const hashKey = "123456";
@@ -221,20 +218,20 @@ Test môi trường UAT: https://uat-api.neopay.vn/pg
 
 ```Javascript
 {
-"neo_MerchantCode"="dmx",
-"neo_Currency"="VND",
-"neo_Locale"="vi",
-"neo_Version"="1",
-"neo_Command"="PAY",
-"neo_Amount"=99999,
-"neo_MerchantTxnID"="T21895327",
-"neo_OrderID"="DH21895327",
-"neo_OrderInfo"="Thanh toán ĐH DH21895327",
-"neo_TransactionID"=undefined,
-"neo_ResponseCode"=18,
-"neo_ResponseMsg"="Canceled",
-"neo_ResponseData"="",
-"neo_SecureHash":"92D148469F2BD499A7BEB169B7313EECCAAAE9C7B2E01424556AEDFF4083639A"
+  "neo_Amount": "112214",
+  "neo_Command": "PAY",
+  "neo_Currency": "VND",
+  "neo_Locale": "vi",
+  "neo_MerchantCode": "HUYEN1",
+  "neo_MerchantTxnID": "T23343243",
+  "neo_OrderID": "DH28900084",
+  "neo_OrderInfo": "Thanh toán ĐH Test",
+  "neo_ResponseCode": "0",
+  "neo_ResponseData": "",
+  "neo_ResponseMsg": "Success",
+  "neo_SecureHash": "80A669689BEE56D02211F8C762D828194C5B3AD121420433D280696B952F3A19",
+  "neo_TransactionID": "5226",
+  "neo_Version": "1"
 }
 ```
 
@@ -253,33 +250,25 @@ Test môi trường UAT: https://uat-api.neopay.vn/pg
 | neo_OrderInfo         | string |                         | Có       | Thông tin đơn hàng                                                                                                                              |
 | neo_Title             | string |                         | Có       | Thông tin tiêu đề sẽ hiển thị trên trang thanh toán                                                                                             |
 | neo_ReturnURL         | string |                         | Có       | URL website của đơn vị                                                                                                                          |
-| neo_AgainURL          | string |                         | Có       | URL trang thanh toán của đơn vị trước khi chuyển sang NeoPAY                                                                                    |
 | neo_ViewType          | string | "POPUP" / "REDIRECT"    | Có       | Chọn mở cổng thanh toán dưới dạng popup hoặc redirect                                                                                           |
 | neo_PaymentMethod     | string | ["WALLET", "ATM", "CC"] | Không    | Cho phép chọn để hiển thị kênh thanh toán trực tiếp hoặc theo danh sách. Nếu không truyền trường này thì sẽ hiển thị tất cả các kênh được phép. |
-| neo_CustomerPhone     | string |                         | Không    | Số điện thoại khách hàng                                                                                                                        |
-| neo_CustomerEmail     | string |                         | Không    | Email khách hàng                                                                                                                                |
-| neo_CustomerID        | string |                         | Không    | Mã khách hàng trên hệ thống đơn vị                                                                                                              |
-| neo_CustomerIpAddress | string |                         | Không    | Địa chỉ IP của khách hàng                                                                                                                       |
 
 ### Mẫu request
 
 ```javascript
 {
-"neo_MerchantCode"="dmx",
-"neo_PaymentMethod"="WALLET",
-"neo_Currency"="VND",
-"neo_Locale"="vi",
-"neo_Version"="1",
-"neo_Command"="PAY",
-"neo_Amount"=99999,
-"neo_MerchantTxnID"="T21895327",
-"neo_OrderID"="DH21895327",
-"neo_OrderInfo"="Thanh toán ĐH DH21895327",
-"neo_TransactionID"=undefined,
-"neo_ResponseCode"=undefined,
-"neo_ResponseMsg"=undefined,
-"neo_ResponseData"="",
-"neo_napasToken"="",
-"neo_SecureHash"="70BB73C17138C207EC4AE08E07DF2B0EB5901C1C5BC0CAC5AB1059A7AC4D8CE4"
+  neo_MerchantCode: "HUYEN1",
+  neo_PaymentMethod: ["WALLET", "ATM", "CC"],
+  neo_Currency: "VND",
+  neo_Locale: "vi",
+  neo_Version: "1",
+  neo_Command: "PAY",
+  neo_Amount: Math.floor(Math.random() * 600000) + 100000,
+  neo_MerchantTxnID: "T23343243",
+  neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
+  neo_OrderInfo: `Thanh toán ĐH Test`,
+  neo_Title: "Thanh toán",
+  neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
+  neo_ViewType: "POPUP",
 }
 ```
