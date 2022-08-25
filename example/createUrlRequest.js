@@ -49,7 +49,8 @@ const runTest = () => {
         "neo_OrderID": `DH${`${Date.now()}`.slice(-8)}`,
         "neo_OrderInfo": "Thanh toán ĐH Test",
         "neo_Title": "Thanh toán",
-        "neo_ReturnURL": "https://uat-api.neopay.vn/pg/paygate/tryitnow/",
+        "neo_ReturnURL": "https://tinhte.vn/",
+        "neo_AgainURL": "https://uat-api.neopay.vn/pg/paygate/tryitnow/",
     }
     const hashKey = "123456"
     const url = generatorUrlRequest(obj, hashKey);
