@@ -3,7 +3,7 @@
 ## Use
 
 ```html
-<!-- example.html -->
+<!-- example-payment.html -->
 <!DOCTYPE html>
 <html lang="vi-VN">
   <head>
@@ -18,11 +18,6 @@
     <br />
     <br />
     <button onclick="onPayWithRedirect()">Thanh toán (Redirect)</button>
-    <br />
-    <br />
-    <button onclick="onPayWithDupliceOrderId()">
-      Thanh toán (Mã đơn hàng bị trùng)
-    </button>
   </body>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -32,8 +27,10 @@
     src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"
   ></script>
   <script>
+    const MERCHANT_CODE = "RZRGNY";
+    const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B";
     $(document).ready(function () {
-      const neo_PaymmentBaseUrl = "https://uat-api.neopay.vn/pg";
+      const neo_PaymmentBaseUrl = "https://sandbox-api.neopay.vn/pg";
       const configUI = {
         neo_HiddenHeader: false,
         neo_HiddenFooter: true,
@@ -55,62 +52,40 @@
     });
     function onPayWithPopup() {
       const config = {
-        neo_MerchantCode: "HUYEN1",
-        neo_PaymentMethod: ["WALLET", "ATM", "CC"],
+        neo_MerchantCode: MERCHANT_CODE,
+        neo_PaymentMethod: ["WALLET", "ATM", "CC", "QR"],
         neo_Currency: "VND",
         neo_Locale: "vi",
         neo_Version: "1",
         neo_Command: "PAY",
         neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-        neo_MerchantTxnID: "T23343243",
+        neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`,
         neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
         neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
+        neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
         neo_ViewType: "POPUP", //POPUP | REDIRECT
       };
-      const hashKey = "123456";
-      neopaySDK.pay(config, hashKey);
+      neopaySDK.pay(config, HASH_KEY);
     }
 
     function onPayWithRedirect() {
       const config = {
-        neo_MerchantCode: "HUYEN1",
-        neo_PaymentMethod: ["WALLET", "ATM", "CC"],
+        neo_MerchantCode: MERCHANT_CODE,
+        neo_PaymentMethod: ["WALLET", "ATM", "CC", "QR"],
         neo_Currency: "VND",
         neo_Locale: "vi",
         neo_Version: "1",
         neo_Command: "PAY",
         neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-        neo_MerchantTxnID: "T23343243",
+        neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`,
         neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
         neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
+        neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
         neo_ViewType: "REDIRECT", //POPUP | REDIRECT
       };
-      const hashKey = "123456";
-      neopaySDK.pay(config, hashKey);
-    }
-
-    function onPayWithDupliceOrderId() {
-      const config = {
-        neo_MerchantCode: "HUYEN1",
-        neo_PaymentMethod: ["WALLET", "ATM", "CC"],
-        neo_Currency: "VND",
-        neo_Locale: "vi",
-        neo_Version: "1",
-        neo_Command: "PAY",
-        neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-        neo_MerchantTxnID: "T23343243",
-        neo_OrderID: `DH001`,
-        neo_OrderInfo: `Thanh toán ĐH DH001`,
-        neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
-        neo_ViewType: "REDIRECT", //POPUP | REDIRECT
-      };
-      const hashKey = "123456";
-      neopaySDK.pay(config, hashKey);
+      neopaySDK.pay(config, HASH_KEY);
     }
   </script>
 </html>
@@ -119,7 +94,7 @@
 ## ----------------------------------------------------------------
 
 ```html
-<!-- checkout.html -->
+<!-- example-result.html -->
 <!DOCTYPE html>
 <html lang="vi-VN">
   <head>
@@ -140,7 +115,7 @@
   ></script>
   <script>
     $(document).ready(function () {
-      const neo_PaymmentBaseUrl = "https://uat-api.neopay.vn/pg";
+      const neo_PaymmentBaseUrl = "https://sandbox-api.neopay.vn/pg";
       const configUI = {
         neo_HiddenHeader: false,
         neo_HiddenFooter: true,
@@ -175,7 +150,7 @@
 ### neo_PaymmentBaseUrl
 
 Thông tin đường dẫn thanh toán
-Test môi trường UAT: https://uat-api.neopay.vn/pg
+Test môi trường Sandbox: https://sandbox-api.neopay.vn/pg
 
 ### configUI
 
@@ -186,6 +161,43 @@ Test môi trường UAT: https://uat-api.neopay.vn/pg
 | neo_HiddenPaymentMethod | boolean | false            | Ẩn phương thức thanh toán khỏi giao diện |
 | neo_HiddenOrderInfo     | boolean | false            | Ẩn thông tin đơn hàng khỏi giao diện     |
 
+### neopaySDK.pay (config, hashKey)
+
+| Tham số           | Loại   | Giá trị mặc định        | Bắt buộc | Mô tả                                                                                                                                           |
+| ----------------- | ------ | ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| neo_MerchantCode  | string |                         | Có       | Mã đơn vị được NeoPAY cấp khi đăng ký kết nối                                                                                                   |
+| neo_Currency      | string | VND                     | Có       | Loại tiền giao dịch, mặc định “VND”                                                                                                             |
+| neo_Locale        | string | vi                      | Có       | Ngôn ngữ muốn hiển thị trên trang thanh toán, hỗ trợ: “vi”, “en”                                                                                |
+| neo_Version       | string | 1                       | Có       | Phiên bản cổng thanh toán, mặc định “1”                                                                                                         |
+| neo_Command       | string | PAY                     | Có       | Giá trị mặc định “PAY”                                                                                                                          |
+| neo_Amount        | number |                         | Có       | Số tiền thanh toán                                                                                                                              |
+| neo_MerchantTxnID | string |                         | Có       | Mã giao dịch duy nhất của đơn vị                                                                                                                |
+| neo_OrderID       | string |                         | Có       | Mã đơn hàng cần thanh toán                                                                                                                      |
+| neo_OrderInfo     | string |                         | Có       | Thông tin đơn hàng                                                                                                                              |
+| neo_Title         | string |                         | Có       | Thông tin tiêu đề sẽ hiển thị trên trang thanh toán                                                                                             |
+| neo_ReturnURL     | string |                         | Có       | URL website của đơn vị                                                                                                                          |
+| neo_ViewType      | string | "POPUP" / "REDIRECT"    | Có       | Chọn mở cổng thanh toán dưới dạng popup hoặc redirect                                                                                           |
+| neo_PaymentMethod | string | ["WALLET", "ATM", "CC", "QR"] | Không    | Cho phép chọn để hiển thị kênh thanh toán trực tiếp hoặc theo danh sách. Nếu không truyền trường này thì sẽ hiển thị tất cả các kênh được phép. |
+
+### Mẫu request
+
+```javascript
+{
+  neo_MerchantCode: "RZRGNY",
+  neo_PaymentMethod: ["WALLET", "ATM", "CC", "QR"],
+  neo_Currency: "VND",
+  neo_Locale: "vi",
+  neo_Version: "1",
+  neo_Command: "PAY",
+  neo_Amount: Math.floor(Math.random() * 600000) + 100000,
+  neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`,
+  neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
+  neo_OrderInfo: `Thanh toán ĐH Test`,
+  neo_Title: "Thanh toán",
+  neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
+  neo_ViewType: "POPUP",
+}
+```
 ### callback
 
 | Sự kiện   | Mô tả                                    |
@@ -222,7 +234,7 @@ Test môi trường UAT: https://uat-api.neopay.vn/pg
   "neo_Command": "PAY",
   "neo_Currency": "VND",
   "neo_Locale": "vi",
-  "neo_MerchantCode": "HUYEN1",
+  "neo_MerchantCode": "RZRGNY",
   "neo_MerchantTxnID": "T23343243",
   "neo_OrderID": "DH28900084",
   "neo_OrderInfo": "Thanh toán ĐH Test",
@@ -232,43 +244,5 @@ Test môi trường UAT: https://uat-api.neopay.vn/pg
   "neo_SecureHash": "80A669689BEE56D02211F8C762D828194C5B3AD121420433D280696B952F3A19",
   "neo_TransactionID": "5226",
   "neo_Version": "1"
-}
-```
-
-### neopaySDK.pay (config, hashKey)
-
-| Tham số               | Loại   | Giá trị mặc định        | Bắt buộc | Mô tả                                                                                                                                           |
-| --------------------- | ------ | ----------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| neo_MerchantCode      | string |                         | Có       | Mã đơn vị được NeoPAY cấp khi đăng ký kết nối                                                                                                   |
-| neo_Currency          | string | VND                     | Có       | Loại tiền giao dịch, mặc định “VND”                                                                                                             |
-| neo_Locale            | string | vi                      | Có       | Ngôn ngữ muốn hiển thị trên trang thanh toán, hỗ trợ: “vi”, “en”                                                                                |
-| neo_Version           | string | 1                       | Có       | Phiên bản cổng thanh toán, mặc định “1”                                                                                                         |
-| neo_Command           | string | PAY                     | Có       | Giá trị mặc định “PAY”                                                                                                                          |
-| neo_Amount            | number |                         | Có       | Số tiền thanh toán                                                                                                                              |
-| neo_MerchantTxnID     | string |                         | Có       | Mã giao dịch duy nhất của đơn vị                                                                                                                |
-| neo_OrderID           | string |                         | Có       | Mã đơn hàng cần thanh toán                                                                                                                      |
-| neo_OrderInfo         | string |                         | Có       | Thông tin đơn hàng                                                                                                                              |
-| neo_Title             | string |                         | Có       | Thông tin tiêu đề sẽ hiển thị trên trang thanh toán                                                                                             |
-| neo_ReturnURL         | string |                         | Có       | URL website của đơn vị                                                                                                                          |
-| neo_ViewType          | string | "POPUP" / "REDIRECT"    | Có       | Chọn mở cổng thanh toán dưới dạng popup hoặc redirect                                                                                           |
-| neo_PaymentMethod     | string | ["WALLET", "ATM", "CC"] | Không    | Cho phép chọn để hiển thị kênh thanh toán trực tiếp hoặc theo danh sách. Nếu không truyền trường này thì sẽ hiển thị tất cả các kênh được phép. |
-
-### Mẫu request
-
-```javascript
-{
-  neo_MerchantCode: "HUYEN1",
-  neo_PaymentMethod: ["WALLET", "ATM", "CC"],
-  neo_Currency: "VND",
-  neo_Locale: "vi",
-  neo_Version: "1",
-  neo_Command: "PAY",
-  neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-  neo_MerchantTxnID: "T23343243",
-  neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
-  neo_OrderInfo: `Thanh toán ĐH Test`,
-  neo_Title: "Thanh toán",
-  neo_ReturnURL: "https://uat-api.neopay.vn/pg/paygate/tryitnow",
-  neo_ViewType: "POPUP",
 }
 ```
