@@ -27,8 +27,8 @@
     src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"
   ></script>
   <script>
-    const MERCHANT_CODE = "RZRGNY";
-    const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B";
+    const MERCHANT_CODE = "RZRGNY"; // WARNING: replace your code on production
+    const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B"; // WARNING: replace your key on production
     $(document).ready(function () {
       const neo_PaymmentBaseUrl = "https://sandbox-api.neopay.vn/pg";
       const configUI = {
