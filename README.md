@@ -28,7 +28,7 @@
   ></script>
   <script>
     const MERCHANT_CODE = "RZRGNY"; // WARNING: replace your code on production
-    const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B"; // WARNING: replace your key on production
+    const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B"; // WARNING: don't do this on production, your HASH_KEY need to be secure on server side
     $(document).ready(function () {
       const neo_PaymmentBaseUrl = "https://sandbox-api.neopay.vn/pg";
       const configUI = {
@@ -63,7 +63,7 @@
         neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
         neo_OrderInfo: `Thanh toán ĐH Test`,
         neo_Title: "Thanh toán",
-        neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
+        neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow", // replace your url
         neo_ViewType: "POPUP", //POPUP | REDIRECT
       };
       neopaySDK.pay(config, HASH_KEY);
