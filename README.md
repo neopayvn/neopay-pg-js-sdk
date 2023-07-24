@@ -183,7 +183,7 @@ Test môi trường Sandbox: https://sandbox-api.neopay.vn/pg
 
 ```javascript
 {
-  neo_MerchantCode: "RZRGNY",
+  neo_MerchantCode: "SDTEST",
   neo_PaymentMethod: ["WALLET", "ATM", "CC", "QR"],
   neo_Currency: "VND",
   neo_Locale: "vi",
@@ -194,7 +194,7 @@ Test môi trường Sandbox: https://sandbox-api.neopay.vn/pg
   neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
   neo_OrderInfo: `Thanh toán ĐH Test`,
   neo_Title: "Thanh toán",
-  neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
+  neo_ReturnURL: "https://your-website-domain/return",
   neo_ViewType: "POPUP",
 }
 ```
@@ -234,7 +234,7 @@ Test môi trường Sandbox: https://sandbox-api.neopay.vn/pg
   "neo_Command": "PAY",
   "neo_Currency": "VND",
   "neo_Locale": "vi",
-  "neo_MerchantCode": "RZRGNY",
+  "neo_MerchantCode": "SDTEST",
   "neo_MerchantTxnID": "T23343243",
   "neo_OrderID": "DH28900084",
   "neo_OrderInfo": "Thanh toán ĐH Test",
