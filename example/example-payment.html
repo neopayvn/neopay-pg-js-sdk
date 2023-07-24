@@ -19,8 +19,8 @@
 <script neopay-sdk type="text/javascript"
 	src="https://cdn.jsdelivr.net/gh/neopayvn/neopay-pg-js-sdk/sdk/neopay-sdk.min.js"></script>
 <script>
-	const MERCHANT_CODE = "RZRGNY";
-	const HASH_KEY = "4F99C21FE8A14FD198FA00D18662A63B"
+	const MERCHANT_CODE = "SDTEST";
+	const HASH_KEY = "4F99C21FE8A14FD198FA00D"
 	$(document).ready(function () {
 		const neo_PaymmentBaseUrl = "https://sandbox-api.neopay.vn/pg";
 		const configUI = {
@@ -51,12 +51,11 @@
 			neo_Version: '1',
 			neo_Command: 'PAY',
 			neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-			neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`,
+			neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`, // unique per request
 			neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
 			neo_OrderInfo: `Thanh toán ĐH Test`,
 			neo_Title: 'Thanh toán',
-			neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
-			neo_AgainURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
+			neo_ReturnURL: "https://your-website-domain/return",
 			neo_ViewType: "POPUP", //POPUP | REDIRECT
 		};
 		neopaySDK.pay(config, HASH_KEY);
@@ -71,12 +70,11 @@
 			neo_Version: '1',
 			neo_Command: 'PAY',
 			neo_Amount: Math.floor(Math.random() * 600000) + 100000,
-			neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`,
+			neo_MerchantTxnID: `T${`${Date.now()}`.slice(-8)}`, // unique per request
 			neo_OrderID: `DH${`${Date.now()}`.slice(-8)}`,
 			neo_OrderInfo: `Thanh toán ĐH Test`,
 			neo_Title: 'Thanh toán',
-			neo_ReturnURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
-			neo_AgainURL: "https://sandbox-api.neopay.vn/pg/paygate/tryitnow",
+			neo_ReturnURL: "https://your-website-domain/return",
 			neo_ViewType: "REDIRECT", //POPUP | REDIRECT
 		};
 		neopaySDK.pay(config, HASH_KEY);
